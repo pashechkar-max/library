@@ -37,7 +37,7 @@ def index(request):
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 10
+    paginate_by = 2
     # ниже это нужно для того чтобы показать первые пять популярных
     # context_object_name = 'my_book_list'  # ваше собственное имя переменной контекста в шаблоне
     # queryset = Book.objects.filter(title__icontains='war')[:5]  # Получение 5 книг, содержащих слово 'war' в заголовке
@@ -46,11 +46,22 @@ class BookListView(generic.ListView):
 class BookDetailView(generic.DetailView):
     model = Book
 
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 2
+    # ниже это нужно для того чтобы показать первые пять популярных
+    # context_object_name = 'my_book_list'  # ваше собственное имя переменной контекста в шаблоне
+    # queryset = Book.objects.filter(title__icontains='war')[:5]  # Получение 5 книг, содержащих слово 'war' в заголовке
+    # template_name = 'books/my_arbitrary_template_name_list.html'  # Определение имени вашего шаблона и его расположения
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
+
 class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
-    paginate_by = 10
+    paginate_by = 2
 
     def get_queryset(self):
         return (
