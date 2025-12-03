@@ -1,9 +1,12 @@
+from os import remove
+
 from django.shortcuts import render
 from django.views import generic
 
 # Создайте ваше отображение здесь
 from .models import Book, Author, BookInstance, Genre
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 import datetime
 
@@ -58,17 +61,15 @@ class AuthorDetailView(generic.DetailView):
     model = Author
 
 class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
-    """Generic class-based view listing books on loan to current user."""
+    """
+    Generic class-based view listing books on loan to current user.
+    """
     model = BookInstance
-    template_name = 'catalog/bookinstance_list_borrowed_user.html'
-    paginate_by = 2
+    template_name ='catalog/bookinstance_list_borrowed_user.html'
+    paginate_by = 10
 
     def get_queryset(self):
-        return (
-            BookInstance.objects.filter(borrower=self.request.user)
-            .filter(status__exact='o')
-            .order_by('due_back')
-        )
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
 
 
 @login_required
@@ -103,3 +104,6 @@ def renew_book_librarian(request, pk):
     }
 
     return render(request, 'catalog/book_renew_librarian.html', context)
+
+def logout_view(request):
+    return render(request, 'registration/logged_out.html')
