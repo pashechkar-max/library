@@ -53,6 +53,7 @@
      <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
    {% endif %}
             </ul>
+            <a href="{% url 'all-borrowed' %}">All Borrowed</a>
           {% endblock %}
 
         </div>
