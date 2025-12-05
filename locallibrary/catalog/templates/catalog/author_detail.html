@@ -3,7 +3,8 @@
 {% block content %}
   <h1>Author: {{ author }}</h1>
   <p>{{author.date_of_birth}} - {{author.date_of_death}}</p>
-  <a href="{% url 'author-delete' author.pk %}">delete author</a>
+  <a href="{% url 'author-delete' author.pk %}">delete author</a> | 
+  <a href="{% url 'author-update' author.pk %}">update author</a>
   <div style="margin-left:20px;margin-top:20px">
     <h4>Books</h4>
     {% for copy in author.book_set.all %}

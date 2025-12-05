@@ -11,6 +11,8 @@
         <a href="{{ author.get_absolute_url }}">{{author.first_name}} {{author.last_name}}</a> ({{author.date_of_birth}} - {{author.date_of_death}}
       </li>
       {% endfor %}
+        <br>
+        <a href="{% url 'author-create' %}">create author +</a>
 
     </ul>
     {% else %}
