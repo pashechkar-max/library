@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1>Title: {{ book.title }}</h1>
+  <a href="{% url 'book-delete' book.pk %}">delete book</a>
 
   <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
   <!-- author detail link not yet defined -->
